@@ -1,4 +1,4 @@
-use std::{fs::*, io::{Read, Write}, ops::Add, error::Error, fmt::Error as OtherError};
+use std::{fs::*, io::{Write}};
 use models::model as model;
 
 
@@ -20,7 +20,7 @@ fn insert_program(program_name: String, program_vendor:String) -> std::io::Resul
 
 fn click_time() -> std::io::Result<Vec<model::Program>>{
 
-    let programs = render::render::render_programs(GetConfig().unwrap())?;
+    let programs = render::render::render_programs(&GetConfig().unwrap())?;
     Ok(programs)
 }
 
@@ -41,7 +41,7 @@ fn add_program() -> std::io::Result<Vec<model::Program>> {
 
     insert_program(program_name, program_vendor).expect("Unable to insert program");
 
-    let programs_rendered = render::render::render_programs(GetConfig().unwrap())?;
+    let programs_rendered = render::render::render_programs(&GetConfig().unwrap())?;
     Ok(programs_rendered)
 }
 
@@ -88,7 +88,7 @@ fn main() {
            //Ok(2) => update_program(),
            //Ok(3) => remove_program(),
            //Ok(4) => cancel(),
-           Err(_) => return_invalid_input(),
+           Err(e) => return_invalid_input(),
            Ok(_)=> return_invalid_input(),
        };
 
